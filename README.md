@@ -21,7 +21,7 @@ JDK 17 or newer (Windows 10/11). Maven is NOT needed.
 2. A browser opens the H2 Console. Enter the JDBC URL printed by the .bat (`jdbc:h2:file:<this folder>/data/careerbridge;AUTO_SERVER=TRUE`), User `sa`, empty password.
 3. Run `SELECT * FROM users;` and `SELECT * FROM applications;`.
 
-Cloud / other database: set environment variables `DB_URL`, `DB_USER`, `DB_PASSWORD` (any JDBC database).
+Cloud / managed database: set `DATABASE_URL` (PostgreSQL, see `DEPLOY.md`) or `DB_URL`, `DB_USER`, `DB_PASSWORD` (any JDBC database). The same code runs on H2 and PostgreSQL.
 
 ## Login and sign up
 - Email + password: `signup.html` / `login.html` -> saved in the `users` table; passwords are stored as salted PBKDF2 hashes.
@@ -36,7 +36,7 @@ Cloud / other database: set environment variables `DB_URL`, `DB_USER`, `DB_PASSW
 
 ## Automated tests (JUnit 5 + JaCoCo coverage)
 - Windows: double-click `run-tests-windows.bat`. Linux/macOS/CI: `sh run-tests.sh`.
-- 74 tests: unit tests (AuthService, Json, models, thread pool, file storage), database tests (H2 in memory) and integration tests that start the real HTTP server on a random port.
+- 78 tests: unit tests (AuthService, Json, models, thread pool, file storage), database tests (H2 in memory) and integration tests that start the real HTTP server on a random port.
 - Results: `test-reports/test-output.txt`, XML in `test-reports/junit/`. Coverage: open `test-reports/coverage/html/index.html` (summary in `test-reports/coverage/coverage-summary.txt`).
 - Test libraries are included in `lib-test/` (JUnit Platform Console 1.9.1, JaCoCo 0.8.11, ASM) so no Maven or internet is needed.
 
@@ -44,7 +44,7 @@ Cloud / other database: set environment variables `DB_URL`, `DB_USER`, `DB_PASSW
 `docker build -t careerbridge .` then `docker run -p 8080:8080 -v careerbridge-data:/data careerbridge`. The container reads `PORT`, `DATA_DIR`, `STATIC_DIR`, `DB_URL`, `GOOGLE_CLIENT_ID`. CI pipeline: `.github/workflows/ci.yml` (tests, then image build).
 
 ## Configuration (environment variables)
-`PORT` (default 8080), `DATA_DIR` (default ./data), `STATIC_DIR` (default .), `DB_URL`, `DB_USER`, `DB_PASSWORD`, `GOOGLE_CLIENT_ID`.
+`PORT` (default 8080), `DATA_DIR` (default ./data), `STATIC_DIR` (default .), `DATABASE_URL` (postgres://user:pass@host/db), `DB_URL`, `DB_USER`, `DB_PASSWORD`, `GOOGLE_CLIENT_ID`.
 
 ## API
 | Method | Endpoint | Purpose |

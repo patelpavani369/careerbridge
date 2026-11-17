@@ -5,13 +5,13 @@ Environment: Linux, JDK 21, H2 2.2.220, JUnit Platform 1.9.1 (Jupiter), JaCoCo 0
 ## Automated JUnit run (`run-tests.sh`)
 | Item | Result |
 |---|---|
-| Tests found / passed / failed | 74 / 74 / 0 |
+| Tests found / passed / failed | 78 / 78 / 0 |
 | Line coverage (JaCoCo) | 84% |
 | Branch coverage | 69% |
 | Method coverage | 88% |
 | Not covered by tests | `Main` (program entry), `TokenInfoVerifier` (calls Google over the internet) |
 
-Test classes: JsonTest, ModelTest, AuthServiceTest (incl. parameterized boundary tests and a 20-thread race test), BackgroundProcessorTest, FileRepositoryTest (100 concurrent appends), JdbcRepositoryTest (incl. SQL-injection text), DatabaseImportTest, ApiServerTest (real HTTP server, 22 tests incl. 30 simultaneous signups and blocked download paths).
+Test classes: JsonTest, ModelTest, AuthServiceTest (incl. parameterized boundary tests and a 20-thread race test), BackgroundProcessorTest, FileRepositoryTest (100 concurrent appends), JdbcRepositoryTest (incl. SQL-injection text), DatabaseImportTest, DatabaseUrlTest, ApiServerTest (real HTTP server, 22 tests incl. 30 simultaneous signups and blocked download paths).
 
 ## Manual / scripted checks
 | Check | Result |
@@ -24,4 +24,5 @@ Test classes: JsonTest, ModelTest, AuthServiceTest (incl. parameterized boundary
 | Container-style run with PORT / DATA_DIR / STATIC_DIR env vars | PASS (simulated, no Docker here) |
 | Google sign-in with a real client ID | NOT TESTED (needs a Client ID) |
 | Run in real Chrome on Windows | Confirmed by the student for signup/login/database view |
-| `docker build`, GitHub Actions run, cloud deployment | NOT RUN YET |
+| Run against a real PostgreSQL 16 server (signup, duplicate, apply, restart, data still present) | PASS (developer environment) |
+| Deployed on Render | Done by the student (link in cloud report) |
